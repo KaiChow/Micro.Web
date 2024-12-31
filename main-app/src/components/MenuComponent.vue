@@ -11,6 +11,8 @@ export default {
         { key: 'home', label: 'Home', path: '/home' },
         { key: 'sub-app-vue3-dashboard', label: 'Sub App Vue3 - Dashboard', path: '/sub-app-vue3/dashboard' },
         { key: 'sub-app-vue3-profile', label: 'Sub App Vue3 - Profile', path: '/sub-app-vue3/profile' },
+        { key: 'sub-app-vue2-profile', label: 'Sub App Vue2 - Profile', path: '/sub-app-vue2/profile' },
+        { key: 'sub-app-vue2-Settings', label: 'Sub App Vue3 - Settings', path: '/sub-app-vue2/settings' },
       ],
     };
   },

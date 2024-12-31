@@ -24,7 +24,14 @@ registerMicroApps([
     props: {
       getGlobalState: store.getGlobalState // 下发getGlobalState方法
     }
-  }
+  },
+  {
+    name: "sub-app-2",
+    entry: "//localhost:7102",
+    container: "#subapp-viewport",
+    activeRule: "/sub-app-2",
+    props: { globalActions: store.getGlobalState },
+  },
 ],{
   fetch: async (url: RequestInfo | URL) => {
     // 自定义 fetch 方法，解决跨域或格式问题

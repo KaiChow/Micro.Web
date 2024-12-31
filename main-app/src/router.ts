@@ -5,6 +5,7 @@ const routes = [
   { path: '/', redirect: '/home' },
   { path: '/home', component: () => import('./components/Home.vue') },
   { path: '/sub-app-vue3/:pathMatch(.*)*', component: MicroAppContainer },
+  { path: '/sub-app-vue2/:pathMatch(.*)*', component: MicroAppContainer },
 ];
 
 const router = createRouter({
