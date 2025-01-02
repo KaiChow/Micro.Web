@@ -29,7 +29,7 @@ registerMicroApps([
     name: "sub-app-2",
     entry: "//localhost:7102",
     container: "#subapp-viewport",
-    activeRule: "/sub-app-2",
+    activeRule: "/sub-app-vue2",
     props: { globalActions: store.getGlobalState },
   },
 ]);

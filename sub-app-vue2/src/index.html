@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app"></div>
-</body>
+  </body>
+  <script>
+    if (window.__POWERED_BY_QIANKUN__) {
+      // 动态设置公共路径
+      __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__;
+    }
+  </script>
 </html>

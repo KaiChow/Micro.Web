@@ -1,3 +1,4 @@
+const packageName = require('./package.json').name;
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -6,7 +7,11 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    library: `${packageName}-[name]`,
+    libraryTarget: 'umd',
+    chunkLoadingGlobal: `webpackJsonp_${packageName}`,
+    publicPath: 'http://localhost:7102/', // 子应用的运行地址
   },
   module: {
     rules: [
@@ -34,6 +39,9 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     static: {
       directory: path.join(__dirname, 'dist')
   },
