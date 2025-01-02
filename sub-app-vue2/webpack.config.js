@@ -1,43 +1,48 @@
-const path = require("path");
-const { ModuleFederationPlugin } = require("webpack").container;
+const path = require('path')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: "./src/main.js",
+  entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-    library: "subAppVue2",
-    libraryTarget: "umd",
-  },
-  mode: "development",
-  devServer: {
-    port: 7102,
-    historyApiFallback: true,
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: "vue-loader",
-      },
-      {
-        test: /\.js$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
+        loader: 'vue-loader'
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-    ],
+        use: ['style-loader', 'css-loader']
+      }
+    ]
   },
   plugins: [
-    new ModuleFederationPlugin({
-      name: "sub_app_vue2",
-      filename: "remoteEntry.js",
-      exposes: {},
-      shared: { vue: { singleton: true, eager: true } },
-    }),
-    new (require("vue-loader").VueLoaderPlugin)(),
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: 'index.html'
+    })
   ],
-};
+  resolve: {
+    alias: {
+      vue$: 'vue/dist/vue.esm.js'
+    },
+    extensions: ['*', '.js', '.vue', '.json']
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist')
+  },
+    compress: true,
+    port: 7102,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    historyApiFallback: true,
+    hot: true,
+  }
+}

@@ -1,17 +1,21 @@
+import "./public-path";
 import Vue from "vue";
+import VueRouter from "vue-router";
 import App from "./App.vue";
-import router from "./router";
-import { qiankunWindow } from "qiankun";
+import routes from "./router";
+// import store from './store';
 
+Vue.config.productionTip = false;
+
+let router = null;
 let instance = null;
-
 function render(props = {}) {
-  const { container, globalActions } = props;
-
-  // 挂载全局状态到 Vue 原型
-  if (globalActions) {
-    Vue.prototype.$globalActions = globalActions;
-  }
+  const { container } = props;
+  router = new VueRouter({
+    base: window.__POWERED_BY_QIANKUN__ ? "/sub-app-vue2/" : "/",
+    mode: "history",
+    routes,
+  });
 
   instance = new Vue({
     router,
@@ -19,26 +23,21 @@ function render(props = {}) {
   }).$mount(container ? container.querySelector("#app") : "#app");
 }
 
-// 如果是独立运行，直接渲染应用
-if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
+// 独立运行时
+if (!window.__POWERED_BY_QIANKUN__) {
   render();
 }
 
-// 导出 qiankun 生命周期钩子
 export async function bootstrap() {
-  console.log("[sub-app-vue2] bootstraped");
+  console.log("[vue] vue app bootstraped");
 }
-
 export async function mount(props) {
-  console.log("[sub-app-vue2] mounted", props);
+  console.log("[vue] props from main framework", props);
   render(props);
 }
-
 export async function unmount() {
-  console.log("[sub-app-vue2] unmounted");
-  if (instance) {
-    instance.$destroy();
-    instance.$el.innerHTML = "";
-    instance = null;
-  }
+  instance.$destroy();
+  instance.$el.innerHTML = "";
+  instance = null;
+  router = null;
 }
