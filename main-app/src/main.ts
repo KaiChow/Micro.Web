@@ -32,13 +32,7 @@ registerMicroApps([
     activeRule: "/sub-app-2",
     props: { globalActions: store.getGlobalState },
   },
-],{
-  fetch: async (url: RequestInfo | URL) => {
-    // 自定义 fetch 方法，解决跨域或格式问题
-    const response = await fetch(url);
-    return response.text();
-  },
-});
+]);
 
 start({
   sandbox: {
